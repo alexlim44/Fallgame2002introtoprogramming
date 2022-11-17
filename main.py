@@ -1,6 +1,7 @@
 #my final main file
 '''
-My final project is 
+My final project is hunger man
+a game
 
 
 
@@ -10,7 +11,8 @@ My final project is
 
 '''
 sources: 
-
+https://www.youtube.com/@buildwithpython
+https://www.w3schools.com/
 
 
 '''
@@ -20,3 +22,5 @@ import pygame as p
 #installed modules/library
 #made libraries
 from settings import *
+
+
