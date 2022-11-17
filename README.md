@@ -5,7 +5,7 @@ A game where you must eat the guys to win
 
 # Description
 
-A 2d game in which you chase around enemies or "guys" who may be hostile or docile
+A 2d game in which you chase around enemies who may be hostile or docile
 
 # Dependencies
 
