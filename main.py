@@ -23,4 +23,6 @@ import pygame as p
 #made libraries
 from settings import *
 
+p.init()
+screen=p.display.set_mode((WIDTH, HEIGHT))
 
