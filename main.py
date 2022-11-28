@@ -13,6 +13,8 @@ a game
 sources: 
 https://www.youtube.com/@buildwithpython
 https://www.w3schools.com/
+https://www.101computing.net/pacman-ghost-algorithm/
+
 
 
 '''
@@ -22,6 +24,10 @@ import pygame as p
 #installed modules/library
 #made libraries
 from settings import *
+
+running=True
+
+
 
 p.init()
 screen=p.display.set_mode((WIDTH, HEIGHT))

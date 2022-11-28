@@ -1,5 +1,5 @@
 # Fallgame2022introtoprogramming
-# Hunger Man!
+# Hunger Man
 
 A game where you must eat the guys to win
 
