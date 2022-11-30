@@ -24,6 +24,7 @@ import pygame as p
 #installed modules/library
 #made libraries
 from settings import *
+from sprites import *
 
 running=True
 
@@ -31,4 +32,9 @@ running=True
 
 p.init()
 screen=p.display.set_mode((WIDTH, HEIGHT))
+time=p.time.Clock
+
+
+while running==True:
+    time.tick(FPS)
 
