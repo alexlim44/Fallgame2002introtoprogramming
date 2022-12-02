@@ -2,9 +2,14 @@ from pygame.sprite import Sprite
 import pygame as p
 from settings import *
 import random
+from math import atan, cos, sin
 vec=p.math.Vector2
 
 
+playerY=30
+npcY=10
+playerX=30
+npcX=30
 
 
 class Player(Sprite):
@@ -44,3 +49,17 @@ class Npc(Sprite):
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.health = 1
+    def update(self):
+        opposite=playerY-npcY
+        adjacent=playerX-npcX
+        angle = atan(opposite/adjacent)
+        if npcX>playerX:
+            angle=angle+180
+        velocity=3 
+        vx = velocity * cos(angle)
+        vy = velocity * sin(angle)
+        npcX = npcX - vx
+        npcY = npcY - vy
+
+
+
