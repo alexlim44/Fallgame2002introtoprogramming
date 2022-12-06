@@ -15,7 +15,7 @@ npcX=30
 class Player(Sprite):
     def __init__(self):
         Sprite.__init__(self)
-        Sprite.image=p.surface((10, 10))
+        self.image=p.Surface((10, 10))
         r=143
         g=211
         b=210
@@ -49,7 +49,9 @@ class Npc(Sprite):
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.health = 1
+    #uses hypotenuse to find where player is
     def update(self):
+
         opposite=playerY-npcY
         adjacent=playerX-npcX
         angle = atan(opposite/adjacent)
@@ -58,8 +60,11 @@ class Npc(Sprite):
         velocity=3 
         vx = velocity * cos(angle)
         vy = velocity * sin(angle)
+        #make npcs run away
         npcX = npcX - vx
         npcY = npcY - vy
+allSprites=p.sprite.Group()
+allnpcs=p.sprite.Group()
 
 
 
