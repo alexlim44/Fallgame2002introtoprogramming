@@ -2,7 +2,7 @@ from pygame.sprite import Sprite
 import pygame as p
 from settings import *
 import random
-from math import atan, cos, sin
+from math import atan, cos, sin, atan2
 vec=p.math.Vector2
 
 
@@ -15,13 +15,14 @@ npcX=30
 class Player(Sprite):
     def __init__(self):
         Sprite.__init__(self)
-        self.image=p.Surface((10, 10))
+        self.image=p.Surface((30, 30))
         r=143
         g=211
         b=210
-        self.image.fill((r, g, b))
+        self.image.fill(GREEN)
         self.rect=self.image.get_rect()
-        self.pos = vec(WIDTH/2, HEIGHT-45)
+        self.rect.center = (WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/2, HEIGHT/2)
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.health = 10
@@ -35,6 +36,13 @@ class Player(Sprite):
             self.acc.y = 5
         if keys[p.K_d]:
             self.acc.x = 5
+    def update(self):
+        self.controls()
+        # friction
+        self.acc.x += self.vel.x * -0.1
+        self.acc.y += self.vel.y * -0.1
+        self.pos += self.vel + 0.1 * self.acc
+        self.rect.midbottom = self.pos
 
 class Npc(Sprite):
     def __init__(self):
@@ -48,16 +56,17 @@ class Npc(Sprite):
         self.pos = vec(WIDTH/2, HEIGHT-45)
         self.vel = vec(0,0)
         self.acc = vec(0,0)
-        self.health = 1
-    #uses hypotenuse to find where player is
+    #uses angles to find where player is
     def update(self):
-
+        #finding opposite and adjacent angles
         opposite=playerY-npcY
         adjacent=playerX-npcX
         angle = atan(opposite/adjacent)
-        if npcX>playerX:
-            angle=angle+180
+        #make npcs turn around if behind
+        '''if npcX>playerX:
+            angle=angle-180'''
         velocity=3 
+        #find player location
         vx = velocity * cos(angle)
         vy = velocity * sin(angle)
         #make npcs run away

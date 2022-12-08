@@ -33,15 +33,18 @@ from sprites import *
 running=True
 player=Player()
 
-
+allSprites.add(player)
 p.init()
 screen=p.display.set_mode((WIDTH, HEIGHT))
 time=p.time.Clock
 
-draw_text("Pick a difficulty, e for easy, m for medium, h for hard", 15, WHITE, WIDTH/2, HEIGHT/18)
+#make user pick difficulty
+draw_text("Pick a difficulty, e for easy, m for medium, h for hard", 15, WHITE, WIDTH/2, HEIGHT/17)
+#difficulty changes according to key pressed
 for event in p.event.get():
     if event.type==p.KEYDOWN:
-        if event.key==p.K_H:
+        #hard mode
+        if event.key==p.K_h:
             for i in range(100):
                 m = Npc(5, 5, 25, 25, RED)
                 allSprites.add(m)
@@ -62,15 +65,14 @@ while running==True:
             running = False
        
         
-    ############ Update ##############
-    # update all sprites
+   
+    # updating sprites
     allSprites.update()
 
-    ############ Draw ################
-    # draw the background screen
+    # drawing background
     screen.fill(BLACK)
    
-    # draw all sprites
+    # drawing all sprites
     allSprites.draw(screen)
 
     # buffer - after drawing everything, flip display
