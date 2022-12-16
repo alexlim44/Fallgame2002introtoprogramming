@@ -14,7 +14,7 @@ sources:
 https://www.youtube.com/@buildwithpython
 https://www.w3schools.com/
 https://www.101computing.net/pacman-ghost-algorithm/
-
+https://9to5answer.com/how-to-add-a-background-image-into-pygame
 
 
 
@@ -32,7 +32,7 @@ from sprites import *
 
 
 
-
+#drawing text function
 def draw_text(text, size, color, x, y):
         font_name = p.font.match_font('arial')
         font = p.font.Font(font_name, size)
@@ -40,18 +40,21 @@ def draw_text(text, size, color, x, y):
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x, y)
         screen.blit(text_surface, text_rect)
+#npc spawn function
 def npc(n):
     for i in range(n):
         m = Npc(randint(0, WIDTH), randint(0, HEIGHT), 25, 25, RED)
         allSprites.add(m)
         allnpcs.add(m)
         
-    
+ #deciding if running or not   
 running=True
+#creating player
 player=Player()
-
 allSprites.add(player)
+#initializing pygame
 p.init()
+#creating screen
 screen=p.display.set_mode((WIDTH, HEIGHT))
 time=p.time.Clock
 
@@ -60,7 +63,8 @@ class Npc(Sprite):
     def __init__(self, x, y, w, h, color):
         Sprite.__init__(self)
         self.image=p.Surface((w, h))
-        self.image.fill((color))
+        #making npcs salmon
+        self.image=p.image.load("R (1) (1).png")
         #self.circle=p.draw.circle()
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -74,18 +78,16 @@ class Npc(Sprite):
         opposite=playerY-npcY
         adjacent=playerX-npcX
         angle = m.atan(opposite/adjacent)
-        #make npcs turn around if behind
-        if npcX>playerX:
-            angle=angle-180
-
+        
+        #velocity factor
         velocity=1
         nvelocity=-1
-        #find player location
+        #find player location use sin and cos
         vx = velocity * m.cos(angle)
         vy = velocity * m.sin(angle)
         nvx=nvelocity * m.cos(angle)
         nvy=nvelocity * m.sin(angle)
-        #make npcs run away
+        #repetitive code, making npcs move away from the player
         if self.rect.x!=WIDTH and player.rect.x>=self.rect.x:
             self.rect.x-=vx
         elif self.rect.x==(WIDTH-30):
@@ -105,18 +107,22 @@ class Npc(Sprite):
         elif self.rect.x==NWIDTH and player.rect.x>=self.rect.x:
             self.rect.x-=vx
 
+#background class
 class Background(p.sprite.Sprite):
+    #initialize class
     def __init__(self, image_file, x, y):
         p.sprite.Sprite.__init__(self)  
+        #load image
         self.image = p.image.load(image_file)
         self.rect = self.image.get_rect()
+        #set x and y
         self.rect.x=x
         self.rect.y=y
 
 
 
 
-Background("restaurant-png-images-9(1).png", WIDTH/2, HEIGHT/2)
+Background("restaurant-png-images-9 (1).png", WIDTH/2, HEIGHT/2)
 while running==True:
     if len(allnpcs)<=100:
         npc(1)
@@ -138,18 +144,17 @@ while running==True:
 
     # drawing background
     screen.fill(BLACK)
-   
-    if SCORE>=2:
-        draw_text("You've successfully satisfied your hunger! Thank you for dining. Eat 1 more block to exit", 22, BLACK, WIDTH / 2, HEIGHT / 13)
-    if SCORE==50:
-        draw_text("Good Job! You ate 50 blocks!", 20, BLACK, 400, 400)
-        
-    if SCORE==3:
+   #end of game
+    if SCORE>=200:
+        draw_text("You've successfully satisfied your hunger! Thank you for dining. Eat 1 more block to exit", 22, WHITE, WIDTH / 2, HEIGHT / 13)
+    
+     #HOW TO end of game   
+    if SCORE==201:
         running=False
 
 
-        
-    draw_text("HUNGER: " + str(SCORE), 22, BLACK, WIDTH / 2, HEIGHT / 24)
+      #showing progression  
+    draw_text("HUNGER: " + str(SCORE), 22, WHITE, WIDTH / 2, HEIGHT / 24)
     # drawing all sprites
     allSprites.draw(screen)
 

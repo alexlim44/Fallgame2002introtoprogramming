@@ -1,5 +1,5 @@
 import pygame as p
-
+#settings
 WIDTH=800
 HEIGHT=560
 NWIDTH=0
